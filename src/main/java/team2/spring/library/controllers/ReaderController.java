@@ -8,11 +8,16 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ReaderController {
   @RequestMapping(value = "/getBlackList", method = RequestMethod.GET)
-  public ModelAndView readerRegistrationStatistic() {
+  public ModelAndView getBlackList() {
     ModelAndView modelAndView = new ModelAndView();
     modelAndView.setViewName("getBList");
 
     return modelAndView;
+  }
+
+  @RequestMapping(value = "/inputAvgAge", method = RequestMethod.GET)
+  public ModelAndView inputAvgAge() {
+    return new ModelAndView("inputAvgAge");
   }
 
   @RequestMapping(value = "/readerStatisticByName", method = RequestMethod.GET)
@@ -36,9 +41,43 @@ public class ReaderController {
   }
 
   @RequestMapping(value = "/avgAgeReader", method = RequestMethod.GET)
-  public ModelAndView getPopularBookByPeriod() {
+  public ModelAndView avgAgeReader() {
     ModelAndView modelAndView = new ModelAndView();
     modelAndView.setViewName("getAvgAge");
+    return modelAndView;
+  }
+
+  @RequestMapping(value = "/averageAgeOfReader", method = RequestMethod.GET)
+  public ModelAndView averageAgeOfReader() {
+    ModelAndView modelAndView = new ModelAndView();
+    modelAndView.setViewName("readerAverageAge");
+
+    return modelAndView;
+  }
+
+  @RequestMapping(value = "/readerRegistration", method = RequestMethod.GET)
+  public ModelAndView readerRegistration() {
+    ModelAndView modelAndView = new ModelAndView();
+    modelAndView.setViewName("readersRegistrationStatistic");
+
+    return modelAndView;
+  }
+
+  @RequestMapping(value = "/readerAverageAppealForm", method = RequestMethod.GET)
+  public ModelAndView readerAverageAppealForm() {
+    return new ModelAndView("readerAverageAppealForm");
+  }
+
+  @RequestMapping(value = "/userStatisticForm", method = RequestMethod.GET)
+  public ModelAndView userStatisticForm() {
+    return new ModelAndView("userStatisticForm");
+  }
+
+  @RequestMapping(value = "/appealStatistic", method = RequestMethod.GET)
+  public ModelAndView appealStatistic() {
+    ModelAndView modelAndView = new ModelAndView();
+    modelAndView.setViewName("readerAverageAppeal");
+
     return modelAndView;
   }
 }

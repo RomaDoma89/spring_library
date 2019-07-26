@@ -13,22 +13,6 @@ public class BookController {
     return new ModelAndView("booksByAuthorForm");
   }
 
-  @RequestMapping(value = "/readerAverageAppealForm", method = RequestMethod.GET)
-  public ModelAndView readerAverageAppealForm() {
-    return new ModelAndView("readerAverageAppealForm");
-  }
-
-  @RequestMapping(value = "/userStatisticForm", method = RequestMethod.GET)
-  public ModelAndView userStatisticForm() {
-    return new ModelAndView("userStatisticForm");
-  }
-
-  // Dima`s jsp
-  @RequestMapping(value = "/inputAvgAge", method = RequestMethod.GET)
-  public ModelAndView inputAvgAge() {
-    return new ModelAndView("inputAvgAge");
-  }
-
   @RequestMapping(value = "/inputBookStat", method = RequestMethod.GET)
   public ModelAndView inputBookStat() {
     return new ModelAndView("inputBookStat");
