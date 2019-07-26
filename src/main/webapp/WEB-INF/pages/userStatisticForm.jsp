@@ -14,7 +14,7 @@
 <body>
 <%@include file="/WEB-INF/pages/menu.jsp"%>
 
-<form action="userStatisticName"method="get" style=" text-align: center; padding-top: 50px">
+<form action="readerStatisticByName"method="get" style=" text-align: center; padding-top: 50px">
     <p>Введіть ім'я користувача</p>
     <input type="text" value="Susan Goodwin" name="name">
     <br>

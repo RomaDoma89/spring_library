@@ -13,7 +13,7 @@
     <%@include file="/WEB-INF/pages/menu.jsp"%>
 </head>
 <body>
-<form action="getByPeriodServlet" method="get" style=" text-align: center; padding-top: 50px">
+<form action="getByPeriod" method="get" style=" text-align: center; padding-top: 50px">
     Input first date in format(yyyy-MM-dd)<br>
     <input type="date" name="firstInput" style="width: 200px">
     <br>

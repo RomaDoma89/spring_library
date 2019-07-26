@@ -20,7 +20,7 @@
 <header>
     <nav class="dws-menu">
         <ul>
-            <li><a href="#"><i class="fa fa-home"></i>Всі книги</a></li>
+            <li><a href="allBooks"><i class="fa fa-home"></i>Всі книги</a></li>
             <li><a href="#"></i>Пошук за параметром</a>
                 <ul>
                     <li><a href="availableBookForm">Знайти чи доступна книга</a>
@@ -34,10 +34,10 @@
                     </li>
                     <li><a href="inputGetPopular">Дістати по популярності</a>
                     </li>
-                    <li><a href="getBlackListServlet">Отримати "чорний список" користувачів</a></li>
+                    <li><a href="getBlackList">Отримати "чорний список" користувачів</a></li>
                     <li><a href="#">Статистика по читачам</a>
                         <ul>
-                            <li><a href="reader_registration">Середній час читання</a></li>
+                            <li><a href="readerRegistration">Середній час читання</a></li>
                             <li><a href="averageAgeOfReader">Середній вік </a></li>
                             <li><a href="appealStatistic">Кількість звернень </a></li>
                         </ul>

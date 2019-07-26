@@ -13,7 +13,7 @@
     <%@include file="/WEB-INF/pages/menu.jsp"%>
 </head>
 <body>
-<form action="avgAgeServlet" method="get" style=" text-align: center; padding-top: 50px">
+<form action="avgAgeReader" method="get" style=" text-align: center; padding-top: 50px">
     Введіть назву книги: <br>
     <input type="text" name="title" style="width: 200px">
     <br>

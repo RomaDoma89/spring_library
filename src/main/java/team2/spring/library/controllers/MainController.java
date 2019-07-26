@@ -8,14 +8,33 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "/")
 public class MainController {
+
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public ModelAndView homePage() {
-
     return new ModelAndView("index");
   }
-//  @RequestMapping(value = "/availableBookForm",method = RequestMethod.GET)
-//  public ModelAndView availableBookForm(){
-//    return  new ModelAndView("availableBookForm");
-//  }
 
+  @RequestMapping(value = "/averageAgeOfReader", method = RequestMethod.GET)
+  public ModelAndView averageAgeOfReader() {
+    ModelAndView modelAndView = new ModelAndView();
+    modelAndView.setViewName("readerAverageAge");
+
+    return modelAndView;
+  }
+
+  @RequestMapping(value = "/appealStatistic", method = RequestMethod.GET)
+  public ModelAndView appealStatistic() {
+    ModelAndView modelAndView = new ModelAndView();
+    modelAndView.setViewName("readerAverageAppeal");
+
+    return modelAndView;
+  }
+
+  @RequestMapping(value = "/readerRegistration", method = RequestMethod.GET)
+  public ModelAndView readerRegistrationStatistic() {
+    ModelAndView modelAndView = new ModelAndView();
+    modelAndView.setViewName("readersRegistrationStatistic");
+
+    return modelAndView;
+  }
 }
