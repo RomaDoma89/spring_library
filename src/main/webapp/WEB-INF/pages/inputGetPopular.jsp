@@ -12,7 +12,7 @@
     <%@include file="/WEB-INF/pages/menu.jsp"%>
 </head>
 <body>
-<form action="getPopularServlet" method="get" style=" text-align: center; padding-top: 50px">
+<form action="getPopularBookByPeriod" method="get" style=" text-align: center; padding-top: 50px">
     Input first date in format(yyyy-MM-dd)<br>
     <input type="text" name="date1" style="width: 200px"><br>
     Input second date in format(yyyy-MM-dd)<br>

@@ -14,10 +14,10 @@
 </head>
 <body>
 <%@include file="menu.jsp"%>
-<form action="bookTitle"method="get" style="text-align: center; padding-top: 50px">
+<form action="bookTitle"method="get" style="text-align: center; padding-top: 50px"  o>
     <p>Введіть назву книги :</p>
     <br>
-    <input type="text" value="Effective Java" name="title">
+    <input type="text" value="Effective Java" name="bookAvailable.title">
     <br>
     <br>
     <input type="submit" value="Submit">

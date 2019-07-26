@@ -14,7 +14,7 @@
     <%@include file="/WEB-INF/pages/menu.jsp"%>
 </head>
 <body>
-<form action="books_by_author"method="get" style="text-align: center; padding-top: 50px">
+<form action="booksByAuthor"method="get" style="text-align: center; padding-top: 50px">
    <p>Введіть назву:</p>
     <input type="text" value="Joshua Bloch" name="author">
     <br>

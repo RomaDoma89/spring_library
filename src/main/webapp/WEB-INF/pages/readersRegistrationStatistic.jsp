@@ -17,7 +17,7 @@
 <table class="simple-little-table" cellspacing='0' style="text-align: center; margin: auto; margin-top: 50px">
     <thead>
     <tr>
-        <th>Книга #</th>
+        <th>Читач #</th>
         <th>Ім'я</th>
         <th>Дні</th>
     </tr><!-- Table Header -->

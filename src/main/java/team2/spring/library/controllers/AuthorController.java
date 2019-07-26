@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(value = "/")
-public class MainController {
-
-  @RequestMapping(value = "/", method = RequestMethod.GET)
-  public ModelAndView homePage() {
-    return new ModelAndView("index");
+public class AuthorController {
+  @RequestMapping(value = "/booksByAuthor", method = RequestMethod.GET)
+  public ModelAndView bookTitle() {
+    ModelAndView modelAndView = new ModelAndView();
+    modelAndView.setViewName("booksByAuthor");
+    return modelAndView;
   }
 }

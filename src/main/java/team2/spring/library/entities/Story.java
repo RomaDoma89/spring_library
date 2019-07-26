@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Getter
 @Setter
@@ -29,7 +29,6 @@ public class Story {
   @JoinColumn(name = "id_copy", nullable = false)
   private Copy copy;
 
-  @Temporal(TemporalType.DATE)
   @Column(name = "time_take", nullable = false)
   private Date timeTake;
 
