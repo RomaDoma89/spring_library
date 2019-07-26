@@ -6,28 +6,28 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "author")
-public class Author {
+@Table(name = "book_copy")
+public class Copy {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", unique = true, nullable = false)
   private int id;
 
-  @Column(name = "name", length = 100, unique = true, nullable = false)
-  private String title;
+  @ManyToOne
+  @JoinColumn(name = "id_book", nullable = false)
+  private Book book;
 
-  @ManyToMany(mappedBy = "authors")
-  private Set<Book> books = new HashSet<>();
+  @Column(name = "available", columnDefinition = "BIT", length = 1)
+  private boolean available;
 
-  public Author(String title) {
-    this.title = title;
+  public Copy(Book book, boolean available) {
+    this.book = book;
+    this.available = available;
   }
 }
