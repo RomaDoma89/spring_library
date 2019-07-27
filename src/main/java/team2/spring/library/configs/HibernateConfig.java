@@ -19,7 +19,9 @@ import java.util.Properties;
 @EnableTransactionManagement
 @PropertySource(value = "classpath:application.properties")
 public class HibernateConfig {
+
   private Environment environment;
+
   @Autowired
   public void setEnvironment(Environment environment) {
     this.environment = environment;
