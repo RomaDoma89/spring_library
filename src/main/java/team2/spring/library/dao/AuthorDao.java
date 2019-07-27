@@ -29,9 +29,9 @@ public class AuthorDao implements Dao<Author> {
   @Override
   public int insert(Author entity) {
     Session session = sessionFactory.getCurrentSession();
-    Author author = (Author) session.save(entity);
-    LibLog.debug(TAG, "insert : " + author.toString());
-    return author.getId();
+    int id = (int) session.save(entity);
+    LibLog.debug(TAG, "inserted : " + session.find(Author.class, id));
+    return id;
   }
 
   @Override

@@ -28,9 +28,9 @@ public class CopyDao implements Dao<Copy> {
   @Override
   public int insert(Copy entity) {
     Session session = sessionFactory.getCurrentSession();
-    Copy copy = (Copy) session.save(entity);
-      LibLog.debug(TAG, "insert : " + copy.toString());
-    return copy.getId();
+    int id = (int) session.save(entity);
+    LibLog.debug(TAG, "inserted : " + session.find(Copy.class, id));
+    return id;
   }
 
   @Override

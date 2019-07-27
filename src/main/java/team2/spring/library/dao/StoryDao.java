@@ -28,9 +28,9 @@ public class StoryDao implements Dao<Story> {
   @Override
   public int insert(Story entity) {
     Session session = sessionFactory.getCurrentSession();
-    Story story = (Story) session.save(entity);
-    LibLog.debug(TAG, "insert : " + story.toString());
-    return story.getId();
+    int id = (int) session.save(entity);
+    LibLog.debug(TAG, "inserted : " + session.find(Story.class, id));
+    return id;
   }
 
   @Override

@@ -9,6 +9,7 @@ import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -29,9 +30,9 @@ public class BookDao implements Dao<Book> {
   @Override
   public int insert(Book entity) {
     Session session = sessionFactory.getCurrentSession();
-    Book book = (Book) session.save(entity);
-    LibLog.debug(TAG, "insert : " + book.toString());
-    return book.getId();
+    int id =  (int) session.save(entity);
+    LibLog.debug(TAG, "inserted : " + session.find(Book.class, id));
+    return id;
   }
 
   @Override

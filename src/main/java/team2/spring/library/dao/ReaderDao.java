@@ -28,9 +28,9 @@ public class ReaderDao implements Dao<Reader> {
   @Override
   public int insert(Reader entity) {
     Session session = sessionFactory.getCurrentSession();
-    Reader reader = (Reader) session.save(entity);
-    LibLog.debug(TAG, "insert : " + reader.toString());
-    return reader.getId();
+    int id = (int) session.save(entity);
+    LibLog.debug(TAG, "inserted : " + session.find(Reader.class, id));
+    return id;
   }
 
   @Override
