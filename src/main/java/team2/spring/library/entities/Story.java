@@ -1,16 +1,14 @@
 package team2.spring.library.entities;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Entity
 @Table(name = "reader_story")
@@ -29,9 +27,11 @@ public class Story {
   @JoinColumn(name = "id_copy", nullable = false)
   private Copy copy;
 
+  @Temporal(TemporalType.DATE)
   @Column(name = "time_take", nullable = false)
   private Date timeTake;
 
+  @Temporal(TemporalType.DATE)
   @Column(name = "time_return")
   private Date timeReturn;
 
