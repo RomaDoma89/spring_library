@@ -16,8 +16,13 @@ import team2.spring.library.entities.Book;
 
 @Repository
 public class BookDao implements Dao<Book> {
-    @Autowired
+
     private SessionFactory sessionFactory;
+
+    @Autowired
+    public BookDao(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public int insert(Book entity) {

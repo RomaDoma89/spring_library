@@ -2,6 +2,7 @@ package team2.spring.library.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import team2.spring.library.LibLog;
 import team2.spring.library.entities.Author;
 
 import javax.persistence.Query;
@@ -15,13 +16,19 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class AuthorDao implements Dao<Author> {
-    @Autowired
+    private final static String TAG = AuthorDao.class.getName();
     private SessionFactory sessionFactory;
+
+    @Autowired
+    public AuthorDao(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public int insert(Author entity) {
         Session session = sessionFactory.getCurrentSession();
         Author author = (Author) session.save(entity);
+        LibLog.debug(TAG, "insert : " + author.toString());
         return author.getId();
     }
 
