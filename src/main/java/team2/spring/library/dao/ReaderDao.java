@@ -2,6 +2,8 @@ package team2.spring.library.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -9,58 +11,57 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
 import team2.spring.library.LibLog;
-import team2.spring.library.entities.Author;
+import team2.spring.library.entities.Reader;
 
 @Repository
-public class AuthorDao implements Dao<Author> {
+public class ReaderDao implements Dao<Reader> {
 
-  private static final String TAG = AuthorDao.class.getName();
+  private static final String TAG = ReaderDao.class.getName();
   private SessionFactory sessionFactory;
 
   @Autowired
-  public AuthorDao(SessionFactory sessionFactory) {
+  public ReaderDao(SessionFactory sessionFactory) {
     this.sessionFactory = sessionFactory;
   }
 
   @Override
-  public int insert(Author entity) {
+  public int insert(Reader entity) {
     Session session = sessionFactory.getCurrentSession();
     int id = (int) session.save(entity);
-    LibLog.debug(TAG, "inserted : " + session.find(Author.class, id));
+    LibLog.debug(TAG, "inserted : " + session.find(Reader.class, id));
     return id;
   }
 
   @Override
-  public Author retrieve(int id) {
+  public Reader retrieve(int id) {
     Session session = sessionFactory.getCurrentSession();
-    return session.find(Author.class, id);
+    return session.find(Reader.class, id);
   }
 
   @Override
-  public List<Author> retrieveAll() {
+  public List<Reader> retrieveAll() {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
-    CriteriaQuery<Author> cq = cb.createQuery(Author.class);
-    Root<Author> root = cq.from(Author.class);
+    CriteriaQuery<Reader> cq = cb.createQuery(Reader.class);
+    Root<Reader> root = cq.from(Reader.class);
     cq.select(root);
     Query query = session.createQuery(cq);
     return query.getResultList();
   }
 
   @Override
-  public Author update(Author entity) {
-    return null;
+  public Reader update(Reader entity) {
+    Session session = sessionFactory.getCurrentSession();
+    session.saveOrUpdate(entity);
+    return session.find(Reader.class, entity.getId());
   }
 
   @Override
   public boolean delete(int id) {
     Session session = sessionFactory.getCurrentSession();
-    Author book = session.find(Author.class, id);
-    session.delete(book);
-    return null != book;
+    Reader reader = session.find(Reader.class, id);
+    session.delete(reader);
+    return null != reader;
   }
 }

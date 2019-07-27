@@ -25,7 +25,8 @@ public class Reader {
   @Column(name = "birthday", nullable = false)
   private Date birthday;
 
-  public Reader(String name) {
+  public Reader(String name, Date birthday) {
     this.name = name;
+    this.birthday = birthday;
   }
 }
