@@ -9,15 +9,14 @@ import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-//import net.javaguides.springmvc.entity.Customer;
 import team2.spring.library.entities.Book;
 
-//@Repository
+@Repository
 public class BookDao implements Dao<Book> {
-//    @Autowired
+    @Autowired
     private SessionFactory sessionFactory;
 
     @Override

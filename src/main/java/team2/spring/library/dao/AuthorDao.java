@@ -10,13 +10,12 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Repository;
-//import net.javaguides.springmvc.entity.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-//@Repository
+@Repository
 public class AuthorDao implements Dao<Author> {
-//    @Autowired
+    @Autowired
     private SessionFactory sessionFactory;
 
     @Override
