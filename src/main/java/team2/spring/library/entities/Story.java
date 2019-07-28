@@ -20,11 +20,11 @@ public class Story {
   private int id;
 
   @ManyToOne
-  @JoinColumn(name = "id_reader", nullable = false)
+  @JoinColumn(name = "reader", nullable = false)
   private Reader reader;
 
   @ManyToOne
-  @JoinColumn(name = "id_copy", nullable = false)
+  @JoinColumn(name = "copy", nullable = false)
   private Copy copy;
 
   @Temporal(TemporalType.DATE)

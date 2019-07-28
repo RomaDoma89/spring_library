@@ -3,6 +3,7 @@ package team2.spring.library.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @Setter
@@ -18,7 +19,7 @@ public class Copy {
   private int id;
 
   @ManyToOne
-  @JoinColumn(name = "id_book", nullable = false)
+  @JoinColumn(name = "book", nullable = false)
   private Book book;
 
   @Column(name = "available", columnDefinition = "BIT", length = 1)

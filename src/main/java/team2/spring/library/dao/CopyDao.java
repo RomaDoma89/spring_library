@@ -5,13 +5,16 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
 import team2.spring.library.LibLog;
+import team2.spring.library.entities.Book;
 import team2.spring.library.entities.Copy;
 
 @Repository
@@ -63,5 +66,18 @@ public class CopyDao implements Dao<Copy> {
     Copy copy = session.find(Copy.class, id);
     session.delete(copy);
     return null != copy;
+  }
+
+  public List<Copy> getAvailableCopies(Book book) throws NoResultException {
+    Session session = sessionFactory.getCurrentSession();
+    CriteriaBuilder cb = session.getCriteriaBuilder();
+    CriteriaQuery<Copy> cq = cb.createQuery(Copy.class);
+    Root<Copy> root = cq.from(Copy.class);
+
+    Predicate predicate =
+        cb.and(cb.equal(root.get("book"), book), cb.equal(root.get("available"), true));
+    cq.select(root).where(predicate);
+
+    return session.createQuery(cq).getResultList();
   }
 }
