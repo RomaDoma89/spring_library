@@ -22,6 +22,7 @@ public class Book {
   @Column(name = "title", length = 225, unique = true, nullable = false)
   private String title;
 
+  @ToString.Exclude
   @ManyToMany(cascade = CascadeType.ALL)
   @JoinTable(
       name = "book_author",
