@@ -20,12 +20,13 @@ public class Author {
   private int id;
 
   @Column(name = "name", length = 100, unique = true, nullable = false)
-  private String title;
+  private String name;
 
+  @ToString.Exclude
   @ManyToMany(mappedBy = "authors")
   private Set<Book> books = new HashSet<>();
 
-  public Author(String title) {
-    this.title = title;
+  public Author(String name) {
+    this.name = name;
   }
 }
