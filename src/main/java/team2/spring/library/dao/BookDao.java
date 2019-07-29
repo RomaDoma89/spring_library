@@ -1,23 +1,19 @@
 package team2.spring.library.dao;
 
+import java.sql.SQLException;
 import java.util.List;
-
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import team2.spring.library.LibLog;
+import team2.spring.library.entities.Author;
 import team2.spring.library.entities.Book;
-import team2.spring.library.entities.Copy;
 
 @Repository
 public class BookDao implements Dao<Book> {
@@ -45,7 +41,7 @@ public class BookDao implements Dao<Book> {
   }
 
   @Override
-  public List<Book> retrieveAll() {
+  public List<Book> retrieveAll() throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
     CriteriaQuery<Book> cq = cb.createQuery(Book.class);
@@ -70,6 +66,7 @@ public class BookDao implements Dao<Book> {
     return null != book;
   }
 
+//  1.1 Подивитись, чи певна книжка доступна
   public Book findByTitle(String title) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -79,5 +76,23 @@ public class BookDao implements Dao<Book> {
     cq.select(root).where(cb.equal(root.get("title"), title));
 
     return session.createQuery(cq).getSingleResult();
+  }
+
+  //    2.2 Вивести всі книжки по автору (основний автор, співавтор)
+  public List<Book> findBooksByAuthor(Author author) {
+    Session session = sessionFactory.getCurrentSession();
+    CriteriaBuilder builder = session.getCriteriaBuilder();
+    CriteriaQuery<Author> cq = builder.createQuery(Author.class);
+    Root<Author> root = cq.from(Author.class);
+    root.join("books");
+
+    cq.select(root).where(builder.equal(root.get("id"), author.getId()));
+    Query query = session.createQuery(cq);
+
+    Author a = (Author) query.getSingleResult();
+
+    LibLog.error(TAG, a.getBooks().toString());
+    return query.getResultList();
+
   }
 }

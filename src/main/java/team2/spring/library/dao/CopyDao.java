@@ -68,6 +68,7 @@ public class CopyDao implements Dao<Copy> {
     return null != copy;
   }
 
+  //  1.2 Подивитись, чи певна книжка доступна
   public List<Copy> getAvailableCopies(Book book) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();

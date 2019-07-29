@@ -3,6 +3,7 @@ package team2.spring.library.dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Repository;
 
 import team2.spring.library.LibLog;
 import team2.spring.library.entities.Author;
+import team2.spring.library.entities.Book;
+import team2.spring.library.entities.Copy;
 
 @Repository
 public class AuthorDao implements Dao<Author> {
@@ -53,7 +56,9 @@ public class AuthorDao implements Dao<Author> {
 
   @Override
   public Author update(Author entity) {
-    return null;
+    Session session = sessionFactory.getCurrentSession();
+    session.saveOrUpdate(entity);
+    return session.find(Author.class, entity.getId());
   }
 
   @Override
@@ -62,5 +67,17 @@ public class AuthorDao implements Dao<Author> {
     Author book = session.find(Author.class, id);
     session.delete(book);
     return null != book;
+  }
+
+  //    2.1 Вивести всі книжки по автору (основний автор, співавтор)
+  public Author findByName(String name) throws NoResultException {
+    Session session = sessionFactory.getCurrentSession();
+    CriteriaBuilder cb = session.getCriteriaBuilder();
+    CriteriaQuery<Author> cq = cb.createQuery(Author.class);
+    Root<Author> root = cq.from(Author.class);
+
+    cq.select(root).where(cb.equal(root.get("name"), name));
+
+    return session.createQuery(cq).getSingleResult();
   }
 }

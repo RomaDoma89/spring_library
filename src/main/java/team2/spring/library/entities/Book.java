@@ -26,8 +26,8 @@ public class Book {
   @ManyToMany(cascade = CascadeType.ALL)
   @JoinTable(
       name = "book_author",
-      joinColumns = {@JoinColumn(name = "id_book", nullable = false, updatable = false)},
-      inverseJoinColumns = {@JoinColumn(name = "id_author", nullable = false, updatable = false)})
+      joinColumns = {@JoinColumn(name = "id_book", nullable = false)},
+      inverseJoinColumns = {@JoinColumn(name = "id_author", nullable = false)})
   private Set<Author> authors = new HashSet<>();
 
   public Book(String title) {

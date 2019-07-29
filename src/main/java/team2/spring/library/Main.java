@@ -1,7 +1,6 @@
 package team2.spring.library;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import team2.spring.library.dao.*;
 import team2.spring.library.entities.*;
@@ -74,20 +73,80 @@ public class Main {
     firstStory.setTimeReturn(new GregorianCalendar(2019, Calendar.JULY, 29).getTime());
     secondStory.setTimeReturn(new GregorianCalendar(2019, Calendar.JUNE, 17).getTime());
 
+    sessionFactory.getCurrentSession().getTransaction().commit();
 
-
-    try {
-      BookDao bookDao = new BookDao(sessionFactory);
-      Book bookByTitle = bookDao.findByTitle("How to get a job in SoftServe");
-      CopyDao copyDao2 = new CopyDao(sessionFactory);
-      List<Copy> availableCopies = copyDao2.getAvailableCopies(bookByTitle);
-
-//      return new AvaliableBookDto(book, availableCopies);
-      LibLog.error(TAG, availableCopies.toString());
-    } catch (NoResultException ex) {
-      // show error in jsp
-    }
-
+//    sessionFactory.getCurrentSession().getTransaction().begin();
+//
+//    //1.
+//    try {
+//      BookDao bookDao = new BookDao(sessionFactory);
+//      Book bookByTitle = bookDao.findByTitle("How to get a job in SoftServe");
+//      CopyDao copyDao2 = new CopyDao(sessionFactory);
+//      List<Copy> availableCopies = copyDao2.getAvailableCopies(bookByTitle);
+//
+////      return new AvaliableBookDto(book, availableCopies);
+//      LibLog.error(TAG, availableCopies.toString());
+//    } catch (NoResultException ex) {
+//      // show error in jsp
+//    }
+//
+//    //2.
+//    try {
+//      AuthorDao authorDao = new AuthorDao(sessionFactory);
+//      Author author = authorDao.findByName("Roman Zahorui");
+//      BookDao bookDao = new BookDao(sessionFactory);
+//      List<Book> booksForAuthor = bookDao.findBooksByAuthor(author);
+//
+////      return new AvaliableBookDto(book, availableCopies);
+////      LibLog.error(TAG, booksForAuthor.toString());
+//    } catch (NoResultException ex) {
+//      // show error in jsp
+//    }
+//
+//
+//    //3.1 ??????????????????????????????????????????????????
+//
+//    //3.2
+//    try {
+//      ReaderDao readerDao = new ReaderDao(sessionFactory);
+//      Reader reader = readerDao.findByName("Third Reader");
+//      LibLog.error(TAG, reader.toString());
+//
+//      StoryDao storyDao = new StoryDao(sessionFactory);
+//      List<Story> stories = storyDao.readBooksForReader(reader);
+//
+//      LibLog.error(TAG, "Reader : "+reader.getName());
+//      for (Story s : stories) {
+//        LibLog.error(TAG, s.getCopy().getBook().getTitle() + "  Took : " + s.getTimeTake() + "   Returned : "+ s.getTimeReturn());
+//      }
+////      LibLog.error(TAG, story.toString());
+//
+////      return new AvaliableBookDto(book, availableCopies);
+////      LibLog.error(TAG, booksForAuthor.toString());
+//    } catch (NoResultException ex) {
+//      // show error in jsp
+//    }
+//
+//    //3.2
+//    try {
+//      ReaderDao readerDao = new ReaderDao(sessionFactory);
+//      Reader reader = readerDao.findByName("Third Reader");
+//      LibLog.error(TAG, reader.toString());
+//
+//      StoryDao storyDao = new StoryDao(sessionFactory);
+//      List<Story> stories = storyDao.readBooksForReader(reader);
+//
+//      LibLog.error(TAG, "Reader : "+reader.getName());
+//      for (Story s : stories) {
+//        LibLog.error(TAG, s.getCopy().getBook().getTitle() + "  Took : " + s.getTimeTake() + "   Returned : "+ s.getTimeReturn());
+//      }
+////      LibLog.error(TAG, story.toString());
+//
+////      return new AvaliableBookDto(book, availableCopies);
+////      LibLog.error(TAG, booksForAuthor.toString());
+//    } catch (NoResultException ex) {
+//      // show error in jsp
+//    }
     sessionFactory.getCurrentSession().getTransaction().commit();
   }
 }
