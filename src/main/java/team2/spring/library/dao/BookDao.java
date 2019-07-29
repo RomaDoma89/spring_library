@@ -14,18 +14,17 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @Repository
 public class BookDao implements BookDaoInfs {
 
   private static final String TAG = BookDao.class.getName();
-  private SessionFactory sessionFactory;
-
   @Autowired
-  public BookDao(SessionFactory sessionFactory) {
-    this.sessionFactory = sessionFactory;
-  }
+  private SessionFactory sessionFactory;
 
   @Override
   public int insert(Book entity) {
@@ -95,6 +94,6 @@ public class BookDao implements BookDaoInfs {
     Author a = (Author) query.getSingleResult();
 
     LibLog.error(TAG, a.getBooks().toString());
-    return query.getResultList();
+    return new ArrayList<>(a.getBooks());
   }
 }

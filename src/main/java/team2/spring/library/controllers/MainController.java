@@ -13,4 +13,8 @@ public class MainController {
   public ModelAndView homePage() {
     return new ModelAndView("index");
   }
+
+  @RequestMapping(value ="/error",method = RequestMethod.GET)
+  public String error(){
+  return "error";}
 }

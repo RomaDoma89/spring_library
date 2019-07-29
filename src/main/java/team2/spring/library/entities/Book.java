@@ -23,7 +23,7 @@ public class Book {
   private String title;
 
   @ToString.Exclude
-  @ManyToMany(cascade = CascadeType.ALL)
+  @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
   @JoinTable(
       name = "book_author",
       joinColumns = {@JoinColumn(name = "id_book", nullable = false)},

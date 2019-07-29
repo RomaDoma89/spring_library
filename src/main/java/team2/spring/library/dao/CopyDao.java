@@ -4,6 +4,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import team2.spring.library.LibLog;
+import team2.spring.library.dao.interfaces.CopyDaoInfs;
+import team2.spring.library.entities.Book;
+import team2.spring.library.entities.Copy;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -11,23 +15,20 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 import java.util.List;
-
-import team2.spring.library.LibLog;
-import team2.spring.library.dao.interfaces.Dao;
-import team2.spring.library.entities.Book;
-import team2.spring.library.entities.Copy;
-
+@Transactional
 @Repository
-public class CopyDao implements Dao<Copy> {
+public class CopyDao implements CopyDaoInfs {
 
   private static final String TAG = CopyDao.class.getName();
+  @Autowired
   private SessionFactory sessionFactory;
 
-  @Autowired
-  public CopyDao(SessionFactory sessionFactory) {
-    this.sessionFactory = sessionFactory;
-  }
+//  @Autowired
+//  public CopyDao(SessionFactory sessionFactory) {
+//    this.sessionFactory = sessionFactory;
+//  }
 
   @Override
   public int insert(Copy entity) {
@@ -70,7 +71,9 @@ public class CopyDao implements Dao<Copy> {
   }
 
   //  1.2 Подивитись, чи певна книжка доступна
+  @Override
   public List<Copy> getAvailableCopies(Book book) throws NoResultException {
+    System.out.println("pfqikj ");
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
     CriteriaQuery<Copy> cq = cb.createQuery(Copy.class);

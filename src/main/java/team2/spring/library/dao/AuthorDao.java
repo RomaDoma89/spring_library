@@ -8,17 +8,21 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import team2.spring.library.LibLog;
+import team2.spring.library.dao.interfaces.AuthorDaoInfs;
 import team2.spring.library.dao.interfaces.Dao;
 import team2.spring.library.entities.Author;
 
+@Transactional
+
 @Repository
-public class AuthorDao implements Dao<Author> {
+public class AuthorDao implements AuthorDaoInfs {
 
   private static final String TAG = AuthorDao.class.getName();
   private SessionFactory sessionFactory;
