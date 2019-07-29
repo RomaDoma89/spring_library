@@ -14,9 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import team2.spring.library.LibLog;
+import team2.spring.library.dao.interfaces.Dao;
 import team2.spring.library.entities.Author;
-import team2.spring.library.entities.Book;
-import team2.spring.library.entities.Copy;
 
 @Repository
 public class AuthorDao implements Dao<Author> {

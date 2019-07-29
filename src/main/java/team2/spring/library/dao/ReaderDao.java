@@ -13,6 +13,7 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 import team2.spring.library.LibLog;
+import team2.spring.library.dao.interfaces.Dao;
 import team2.spring.library.entities.Reader;
 
 @Repository

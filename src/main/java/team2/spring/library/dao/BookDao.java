@@ -5,19 +5,19 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import team2.spring.library.LibLog;
+import team2.spring.library.dao.interfaces.BookDaoInfs;
 import team2.spring.library.entities.Author;
 import team2.spring.library.entities.Book;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
-public class BookDao implements Dao<Book> {
+public class BookDao implements BookDaoInfs {
 
   private static final String TAG = BookDao.class.getName();
   private SessionFactory sessionFactory;
@@ -47,7 +47,7 @@ public class BookDao implements Dao<Book> {
     CriteriaBuilder cb = session.getCriteriaBuilder();
     CriteriaQuery<Book> cq = cb.createQuery(Book.class);
     Root<Book> root = cq.from(Book.class);
-    cq.select(root).where(cb.greaterThan(root.get("id"), 20));
+    cq.select(root);
     Query query = session.createQuery(cq);
     return query.getResultList();
   }
@@ -68,6 +68,7 @@ public class BookDao implements Dao<Book> {
   }
 
   //  1.1 Подивитись, чи певна книжка доступна
+  @Override
   public Book findByTitle(String title) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -80,6 +81,7 @@ public class BookDao implements Dao<Book> {
   }
 
   //    2.2 Вивести всі книжки по автору (основний автор, співавтор)
+  @Override
   public List<Book> findBooksByAuthor(Author author) {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();

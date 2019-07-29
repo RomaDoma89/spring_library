@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import team2.spring.library.LibLog;
-import team2.spring.library.entities.Book;
+import team2.spring.library.dao.interfaces.Dao;
 import team2.spring.library.entities.Reader;
 import team2.spring.library.entities.Story;
 
