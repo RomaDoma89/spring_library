@@ -23,13 +23,12 @@ import java.util.List;
 public class CopyDao implements CopyDaoInfs {
 
   private static final String TAG = CopyDao.class.getName();
-  @Autowired
-  private SessionFactory sessionFactory;
+  @Autowired private SessionFactory sessionFactory;
 
-//    @Autowired
-//    public CopyDao(SessionFactory sessionFactory) {
-//      this.sessionFactory = sessionFactory;
-//    }
+  //  @Autowired
+  //  public CopyDao(SessionFactory sessionFactory) {
+  //    this.sessionFactory = sessionFactory;
+  //  }
 
   @Override
   public int insert(Copy entity) {
@@ -74,7 +73,6 @@ public class CopyDao implements CopyDaoInfs {
   //  1.2 Подивитись, чи певна книжка доступна
   @Override
   public List<Copy> getAvailableCopies(Book book) throws NoResultException {
-    System.out.println("pfqikj ");
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
     CriteriaQuery<Copy> cq = cb.createQuery(Copy.class);

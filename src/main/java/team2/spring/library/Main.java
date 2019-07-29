@@ -6,7 +6,12 @@ import team2.spring.library.dao.*;
 import team2.spring.library.entities.*;
 
 import javax.persistence.NoResultException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Main {
   private static SessionFactory sessionFactory;
