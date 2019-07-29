@@ -24,14 +24,15 @@ import team2.spring.library.entities.Story;
 public class StoryDao implements Dao<Story> {
 
   private static final String TAG = StoryDao.class.getName();
+  @Autowired
   private SessionFactory sessionFactory;
   //  @PersistenceContext
   //  private EntityManagerFactory entityManagerFactory;
 
-  @Autowired
-  public StoryDao(SessionFactory sessionFactory) {
-    this.sessionFactory = sessionFactory;
-  }
+//  @Autowired
+//  public StoryDao(SessionFactory sessionFactory) {
+//    this.sessionFactory = sessionFactory;
+//  }
 
   @Override
   public int insert(Story entity) {

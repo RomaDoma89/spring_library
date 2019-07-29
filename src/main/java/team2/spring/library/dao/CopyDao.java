@@ -23,12 +23,13 @@ import java.util.List;
 public class CopyDao implements CopyDaoInfs {
 
   private static final String TAG = CopyDao.class.getName();
-  @Autowired private SessionFactory sessionFactory;
+  @Autowired
+  private SessionFactory sessionFactory;
 
-  //  @Autowired
-  //  public CopyDao(SessionFactory sessionFactory) {
-  //    this.sessionFactory = sessionFactory;
-  //  }
+//    @Autowired
+//    public CopyDao(SessionFactory sessionFactory) {
+//      this.sessionFactory = sessionFactory;
+//    }
 
   @Override
   public int insert(Copy entity) {
@@ -86,7 +87,7 @@ public class CopyDao implements CopyDaoInfs {
     return session.createQuery(cq).getResultList();
   }
   // 10
-  public List<Copy> getAvailableCopiesByBook(Book book) throws NoResultException {
+  public List<Copy> getAllCopiesForBook(Book book) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
     CriteriaQuery<Copy> cq = cb.createQuery(Copy.class);

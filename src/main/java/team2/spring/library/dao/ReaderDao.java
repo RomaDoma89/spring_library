@@ -16,19 +16,20 @@ import java.util.List;
 import team2.spring.library.LibLog;
 import team2.spring.library.dao.interfaces.Dao;
 import team2.spring.library.entities.Reader;
+import team2.spring.library.entities.Story;
 
 @Transactional
-
 @Repository
 public class ReaderDao implements Dao<Reader> {
 
   private static final String TAG = ReaderDao.class.getName();
+  @Autowired
   private SessionFactory sessionFactory;
 
-  @Autowired
-  public ReaderDao(SessionFactory sessionFactory) {
-    this.sessionFactory = sessionFactory;
-  }
+//  @Autowired
+//  public ReaderDao(SessionFactory sessionFactory) {
+//    this.sessionFactory = sessionFactory;
+//  }
 
   @Override
   public int insert(Reader entity) {
@@ -81,5 +82,16 @@ public class ReaderDao implements Dao<Reader> {
     cq.select(root).where(cb.equal(root.get("name"), name));
 
     return session.createQuery(cq).getSingleResult();
+  }
+
+  // 7
+  public List<Story> getBlackList() {
+    Session session = sessionFactory.getCurrentSession();
+    CriteriaBuilder cb = session.getCriteriaBuilder();
+    CriteriaQuery<Story> cq = cb.createQuery(Story.class);
+    Root<Story> root = cq.from(Story.class);
+
+    cq.select(root).where(cb.isNull(root.get("timeReturn"))).groupBy(root.get("reader"));
+    return session.createQuery(cq).getResultList();
   }
 }
