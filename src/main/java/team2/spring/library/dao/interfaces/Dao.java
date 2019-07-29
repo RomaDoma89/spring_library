@@ -1,4 +1,4 @@
-package team2.spring.library.dao;
+package team2.spring.library.dao.interfaces;
 
 import java.util.List;
 
