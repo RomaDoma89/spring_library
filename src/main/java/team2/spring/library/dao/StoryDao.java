@@ -5,8 +5,11 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.*;
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
@@ -15,11 +18,15 @@ import team2.spring.library.dao.interfaces.Dao;
 import team2.spring.library.entities.Reader;
 import team2.spring.library.entities.Story;
 
+@Transactional
+
 @Repository
 public class StoryDao implements Dao<Story> {
 
   private static final String TAG = StoryDao.class.getName();
   private SessionFactory sessionFactory;
+//  @PersistenceContext
+//  private EntityManagerFactory entityManagerFactory;
 
   @Autowired
   public StoryDao(SessionFactory sessionFactory) {
@@ -28,6 +35,7 @@ public class StoryDao implements Dao<Story> {
 
   @Override
   public int insert(Story entity) {
+
     Session session = sessionFactory.getCurrentSession();
     int id = (int) session.save(entity);
     LibLog.debug(TAG, "inserted : " + session.find(Story.class, id));

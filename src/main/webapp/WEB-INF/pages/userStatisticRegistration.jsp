@@ -8,8 +8,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<link rel="stylesheet" href="${pageContext.request.contextPath}tableCss.css">
-<head>
+<link rel="stylesheet" href="<c:url value="/resources/tableCss.css"/>" type="text/css"><head>
+
     <title>Title</title>
 </head>
 <body>

@@ -36,7 +36,7 @@ public class Story {
   private Date timeReturn;
 
   public Story(Reader reader, Copy copy, Date timeTake) {
-    this.reader = reader;
+    this.reader=reader;
     this.copy = copy;
     this.timeTake = timeTake;
   }
