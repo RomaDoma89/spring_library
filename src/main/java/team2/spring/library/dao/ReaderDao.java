@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -63,5 +64,18 @@ public class ReaderDao implements Dao<Reader> {
     Reader reader = session.find(Reader.class, id);
     session.delete(reader);
     return null != reader;
+  }
+
+  //  3. Переглянути статистику по читачу (які книжки брав, які на руках, скільки часу користується
+  // послугами бібліотеки)
+  public Reader findByName(String name) throws NoResultException {
+    Session session = sessionFactory.getCurrentSession();
+    CriteriaBuilder cb = session.getCriteriaBuilder();
+    CriteriaQuery<Reader> cq = cb.createQuery(Reader.class);
+    Root<Reader> root = cq.from(Reader.class);
+
+    cq.select(root).where(cb.equal(root.get("name"), name));
+
+    return session.createQuery(cq).getSingleResult();
   }
 }
