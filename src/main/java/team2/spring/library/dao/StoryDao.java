@@ -66,7 +66,7 @@ public class StoryDao implements Dao<Story> {
     return null == story;
   }
 
-//  3. Переглянути статистику по читачу (які книжки брав)
+//  3.2 Переглянути статистику по читачу (які книжки брав)
   public List<Story> readBooksForReader(Reader reader) {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -81,7 +81,7 @@ public class StoryDao implements Dao<Story> {
     return session.createQuery(cq).getResultList();
   }
 
-  //  3. Переглянути статистику по читачу (які на руках)
+  //  3.2 Переглянути статистику по читачу (які на руках)
   public List<Story> notReturnedBooksForReader(Reader reader) {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -95,6 +95,23 @@ public class StoryDao implements Dao<Story> {
 
     return session.createQuery(cq).getResultList();
   }
+
+//  4. Скільки книжок в бібліотеці, які видані в період незалежності
+  public int findByPeriod(Date fromDate, Date toDate) {
+    Session session = sessionFactory.getCurrentSession();
+    CriteriaBuilder cb = session.getCriteriaBuilder();
+
+    CriteriaQuery<Story> cq = cb.createQuery(Story.class);
+
+    Root<Story> root = cq.from(Story.class);
+
+    cq.select(root).where(cb.between(root.get("timeTake"), fromDate, toDate));
+
+    LibLog.error(TAG, session.createQuery(cq).getResultList().toString());
+    return session.createQuery(cq).getResultList().size();
+  }
+
+
 
 
 //  public Date timeOfUsingLibraryForReaders() {

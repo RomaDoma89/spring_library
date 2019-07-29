@@ -66,7 +66,7 @@ public class ReaderDao implements Dao<Reader> {
     return null != reader;
   }
 
-  //  3. Переглянути статистику по читачу (які книжки брав, які на руках, скільки часу користується
+  //  3.1 Переглянути статистику по читачу (які книжки брав, які на руках, скільки часу користується
   // послугами бібліотеки)
   public Reader findByName(String name) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();

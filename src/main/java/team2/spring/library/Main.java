@@ -34,48 +34,55 @@ public class Main {
     // Create SessionFactory
     sessionFactory = cfg.buildSessionFactory();
 
+//    sessionFactory.getCurrentSession().getTransaction().begin();
+//
+//        // Add our book with some authors
+//    BookDao dao = new BookDao(sessionFactory);
+//    Book book = new Book("How to get a job in SoftServe");
+//    Set<Author> authors = new HashSet<>();
+//    authors.add(new Author("Marian Milian"));
+//    authors.add(new Author("Dmytro Dovgal"));
+//    authors.add(new Author("Roman Zahorui"));
+//    book.setAuthors(authors);
+//
+//    int bookId = dao.insert(book);
+//    Book addedBook = dao.retrieve(bookId);
+//
+//    // Add some copies for the book
+//    CopyDao copyDao = new CopyDao(sessionFactory);
+//    int copyId_1 = copyDao.insert(new Copy(addedBook, true));
+//    int copyId_2 = copyDao.insert(new Copy(addedBook, true));
+//    int copyId_3 = copyDao.insert(new Copy(addedBook, false));
+//    copyDao.insert(new Copy(addedBook, false));
+//    copyDao.insert(new Copy(addedBook, true));
+//
+//    // Add a few readers
+//    ReaderDao readerDao = new ReaderDao(sessionFactory);
+//    int readerId_1 = readerDao.insert(new Reader("First Reader", new GregorianCalendar(2004, Calendar.FEBRUARY, 11).getTime()));
+//    int readerId_2 = readerDao.insert(new Reader("Second Reader", new GregorianCalendar(1999, Calendar.SEPTEMBER, 10).getTime()));
+//    int readerId_3 = readerDao.insert(new Reader("Third Reader", new GregorianCalendar(2000, Calendar.JULY, 9).getTime()));
+//
+//    StoryDao storyDao = new StoryDao(sessionFactory);
+//    Story firstStory = new Story(readerDao.retrieve(readerId_1), copyDao.retrieve(copyId_1), new GregorianCalendar(2019, Calendar.JULY, 9).getTime());
+//    Story secondStory = new Story(readerDao.retrieve(readerId_2), copyDao.retrieve(copyId_2), new GregorianCalendar(2019, Calendar.JUNE, 7).getTime());
+//    Story thirdStory = new Story(readerDao.retrieve(readerId_3), copyDao.retrieve(copyId_3), new GregorianCalendar(2019, Calendar.MARCH, 8).getTime());
+//    storyDao.insert(firstStory);
+//    storyDao.insert(secondStory);
+//    storyDao.insert(thirdStory);
+//
+//    firstStory.setTimeReturn(new GregorianCalendar(2019, Calendar.JULY, 29).getTime());
+//    secondStory.setTimeReturn(new GregorianCalendar(2019, Calendar.JUNE, 17).getTime());
+//
+//    sessionFactory.getCurrentSession().getTransaction().commit();
+
     sessionFactory.getCurrentSession().getTransaction().begin();
 
-        // Add our book with some authors
-    BookDao dao = new BookDao(sessionFactory);
-    Book book = new Book("How to get a job in SoftServe");
-    Set<Author> authors = new HashSet<>();
-    authors.add(new Author("Marian Milian"));
-    authors.add(new Author("Dmytro Dovgal"));
-    authors.add(new Author("Roman Zahorui"));
-    book.setAuthors(authors);
-
-    int bookId = dao.insert(book);
-    Book addedBook = dao.retrieve(bookId);
-
-    // Add some copies for the book
-    CopyDao copyDao = new CopyDao(sessionFactory);
-    int copyId_1 = copyDao.insert(new Copy(addedBook, true));
-    int copyId_2 = copyDao.insert(new Copy(addedBook, true));
-    int copyId_3 = copyDao.insert(new Copy(addedBook, false));
-    copyDao.insert(new Copy(addedBook, false));
-    copyDao.insert(new Copy(addedBook, true));
-
-    // Add a few readers
-    ReaderDao readerDao = new ReaderDao(sessionFactory);
-    int readerId_1 = readerDao.insert(new Reader("First Reader", new GregorianCalendar(2004, Calendar.FEBRUARY, 11).getTime()));
-    int readerId_2 = readerDao.insert(new Reader("Second Reader", new GregorianCalendar(1999, Calendar.SEPTEMBER, 10).getTime()));
-    int readerId_3 = readerDao.insert(new Reader("Third Reader", new GregorianCalendar(2000, Calendar.JULY, 9).getTime()));
-
     StoryDao storyDao = new StoryDao(sessionFactory);
-    Story firstStory = new Story(readerDao.retrieve(readerId_1), copyDao.retrieve(copyId_1), new GregorianCalendar(2019, Calendar.JULY, 9).getTime());
-    Story secondStory = new Story(readerDao.retrieve(readerId_2), copyDao.retrieve(copyId_2), new GregorianCalendar(2019, Calendar.JUNE, 7).getTime());
-    Story thirdStory = new Story(readerDao.retrieve(readerId_3), copyDao.retrieve(copyId_3), new GregorianCalendar(2019, Calendar.MARCH, 8).getTime());
-    storyDao.insert(firstStory);
-    storyDao.insert(secondStory);
-    storyDao.insert(thirdStory);
+    int count =  storyDao.findByPeriod(
+            new GregorianCalendar(1999, Calendar.FEBRUARY, 11).getTime(),
+            new GregorianCalendar(2019, Calendar.DECEMBER, 11).getTime());
+    LibLog.error(TAG, count+" ");
 
-    firstStory.setTimeReturn(new GregorianCalendar(2019, Calendar.JULY, 29).getTime());
-    secondStory.setTimeReturn(new GregorianCalendar(2019, Calendar.JUNE, 17).getTime());
-
-    sessionFactory.getCurrentSession().getTransaction().commit();
-
-//    sessionFactory.getCurrentSession().getTransaction().begin();
 //
 //    //1.
 //    try {

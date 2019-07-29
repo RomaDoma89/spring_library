@@ -16,6 +16,8 @@ public class BookServiceImpl implements BookService {
     public List<Book> getAllBooks() {
         return bookDao.retrieveAll();
     }
+//    //1.
+//    public void is
 
 
 }
