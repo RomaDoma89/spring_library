@@ -17,18 +17,18 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.List;
+
 @Transactional
 @Repository
 public class CopyDao implements CopyDaoInfs {
 
   private static final String TAG = CopyDao.class.getName();
-  @Autowired
-  private SessionFactory sessionFactory;
+  @Autowired private SessionFactory sessionFactory;
 
-//  @Autowired
-//  public CopyDao(SessionFactory sessionFactory) {
-//    this.sessionFactory = sessionFactory;
-//  }
+  //  @Autowired
+  //  public CopyDao(SessionFactory sessionFactory) {
+  //    this.sessionFactory = sessionFactory;
+  //  }
 
   @Override
   public int insert(Copy entity) {
@@ -83,6 +83,16 @@ public class CopyDao implements CopyDaoInfs {
         cb.and(cb.equal(root.get("book"), book), cb.equal(root.get("available"), true));
     cq.select(root).where(predicate);
 
+    return session.createQuery(cq).getResultList();
+  }
+  // 10
+  public List<Copy> getAvailableCopiesByBook(Book book) throws NoResultException {
+    Session session = sessionFactory.getCurrentSession();
+    CriteriaBuilder cb = session.getCriteriaBuilder();
+    CriteriaQuery<Copy> cq = cb.createQuery(Copy.class);
+    Root<Copy> root = cq.from(Copy.class);
+    root.join("book");
+    cq.select(root).where(cb.equal(root.get("book"), book));
     return session.createQuery(cq).getResultList();
   }
 }

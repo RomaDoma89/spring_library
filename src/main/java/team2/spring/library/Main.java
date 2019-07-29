@@ -25,7 +25,7 @@ public class Main {
             .setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/library_spring?createDatabaseIfNotExist=true&serverTimezone=UTC")
             .setProperty("hibernate.current_session_context_class", "thread")
             .setProperty("hibernate.connection.username", "root")
-            .setProperty("hibernate.connection.password", "root")
+            .setProperty("hibernate.connection.password", "1123581321")
             .setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect")
             .setProperty("hibernate.show_sql", "true")
             .setProperty("hibernate.format_sql", "true")
