@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import team2.spring.library.LibLog;
 import team2.spring.library.entities.Book;
 import team2.spring.library.services.BookService;
 import team2.spring.library.services.BookServiceImpl;
@@ -63,6 +64,7 @@ public class BookController {
     modelAndView.setViewName("allBooks");
     List<Book> listBook = bookService.getAllBooks();
     modelAndView.addObject("listBook", listBook);
+    LibLog.error(BookController.class.getName(), listBook.toString());
     return modelAndView;
   }
 
