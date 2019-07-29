@@ -77,13 +77,13 @@ public class Main {
 
     sessionFactory.getCurrentSession().getTransaction().begin();
 
-    StoryDao storyDao = new StoryDao(sessionFactory);
-    int count =  storyDao.findByPeriod(
-            new GregorianCalendar(1999, Calendar.FEBRUARY, 11).getTime(),
-            new GregorianCalendar(2019, Calendar.DECEMBER, 11).getTime());
-    LibLog.error(TAG, count+" ");
+//    StoryDao storyDao = new StoryDao(sessionFactory);
+//    int count =  storyDao.findByPeriod(
+//            new GregorianCalendar(1999, Calendar.FEBRUARY, 11).getTime(),
+//            new GregorianCalendar(2019, Calendar.DECEMBER, 11).getTime());
+//    LibLog.error(TAG, count+" ");
 
-//
+
 //    //1.
 //    try {
 //      BookDao bookDao = new BookDao(sessionFactory);

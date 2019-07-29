@@ -119,6 +119,8 @@ public class StoryDao implements Dao<Story> {
     return session.createQuery(cq).getResultList().size();
   }
 
+//  5. Скільки разів брали певну книжку (в загальному, по примірникам, середній час читання)
+//  public void find
 
 
 
