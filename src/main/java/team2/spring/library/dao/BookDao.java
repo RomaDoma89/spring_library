@@ -23,8 +23,12 @@ import java.util.List;
 public class BookDao implements BookDaoInfs {
 
   private static final String TAG = BookDao.class.getName();
-  @Autowired
   private SessionFactory sessionFactory;
+
+  @Autowired
+  public BookDao(SessionFactory sessionFactory) {
+    this.sessionFactory = sessionFactory;
+  }
 
   @Override
   public int insert(Book entity) {
@@ -79,7 +83,7 @@ public class BookDao implements BookDaoInfs {
     return session.createQuery(cq).getSingleResult();
   }
 
-  //    2.2 Вивести всі книжки по автору (основний автор, співавтор)
+  //  2.2 Вивести всі книжки по автору (основний автор, співавтор)
   @Override
   public List<Book> findBooksByAuthor(Author author) {
     Session session = sessionFactory.getCurrentSession();

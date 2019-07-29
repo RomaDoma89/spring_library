@@ -6,7 +6,12 @@ import team2.spring.library.dao.*;
 import team2.spring.library.entities.*;
 
 import javax.persistence.NoResultException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 public class Main {
   private static SessionFactory sessionFactory;
@@ -25,7 +30,7 @@ public class Main {
             .setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/library_spring?createDatabaseIfNotExist=true&serverTimezone=UTC")
             .setProperty("hibernate.current_session_context_class", "thread")
             .setProperty("hibernate.connection.username", "root")
-            .setProperty("hibernate.connection.password", "1123581321")
+            .setProperty("hibernate.connection.password", "root")
             .setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect")
             .setProperty("hibernate.show_sql", "true")
             .setProperty("hibernate.format_sql", "true")

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.*;
@@ -75,7 +76,7 @@ public class StoryDao implements Dao<Story> {
   }
 
   //  3.2 Переглянути статистику по читачу (які книжки брав)
-  public List<Story> readBooksForReader(Reader reader) {
+  public List<Story> readBooksForReader(Reader reader) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
 
@@ -119,8 +120,9 @@ public class StoryDao implements Dao<Story> {
     return session.createQuery(cq).getResultList().size();
   }
 
+  // 5. Скільки разів брали певну книжку (в загальному, по примірникам, середній час читання)
   // 9.1
-  public List<Story> getAvgYearsByBook(List<Copy> copyList) {
+  public List<Story> getStoriesForBookByCopies(List<Copy> copyList) {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
     CriteriaQuery<Story> cq = cb.createQuery(Story.class);
@@ -128,38 +130,4 @@ public class StoryDao implements Dao<Story> {
     cq.select(root).where(root.get("copy").in(copyList));
     return session.createQuery(cq).getResultList();
   }
-
-  //  5. Скільки разів брали певну книжку (в загальному, по примірникам, середній час читання)
-  //  public void find
-
-  //  public Date timeOfUsingLibraryForReaders() {
-  //    Session session = sessionFactory.getCurrentSession();
-  //    CriteriaBuilder cb = session.getCriteriaBuilder();
-  //
-  //    CriteriaQuery<Story> cq = cb.createQuery(Story.class);
-  //
-  //    Root<Story> root = cq.from(Story.class);
-  //    root.join("reader");
-
-  //    final Path<Date> checkDatePath = root.get("timeTake");
-  //    final ParameterExpression<Date> startDateParameter = cb.parameter(Date.class);
-  //
-  //
-  //    Path<Date> expiryDate = root.<Date> get("timeTake");
-  //    Expression<Date> exp = cb.least(expiryDate);
-  //
-  //
-  //
-  //    cq.select(root.get("reader"), root.get("timeTake")).groupBy(root.get("reader"));
-  //
-  //    Query query = session.createQuery(cq);
-  //    LibLog.error(TAG, query.toString());
-
-  //    List<Story> story = session.createQuery(cq).getResultList();
-  //    for (Story s : story) {
-  //      LibLog.error(TAG, s.toString());
-  //    }
-
-  //    return null;
-  //  }
 }
