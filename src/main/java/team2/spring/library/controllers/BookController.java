@@ -1,12 +1,21 @@
 package team2.spring.library.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import team2.spring.library.entities.Book;
+import team2.spring.library.services.BookService;
+import team2.spring.library.services.BookServiceImpl;
+
+import java.util.List;
 
 @Controller
 public class BookController {
+
+  @Autowired
+  private BookServiceImpl bookService;
 
   @RequestMapping(value = "/booksByAuthorForm", method = RequestMethod.GET)
   public ModelAndView booksByAuthorForm() {
@@ -52,6 +61,8 @@ public class BookController {
   public ModelAndView allBooks() {
     ModelAndView modelAndView = new ModelAndView();
     modelAndView.setViewName("allBooks");
+    List<Book> listBook = bookService.getAllBooks();
+    modelAndView.addObject("listBook", listBook);
     return modelAndView;
   }
 

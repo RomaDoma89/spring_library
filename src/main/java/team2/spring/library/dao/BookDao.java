@@ -1,5 +1,6 @@
 package team2.spring.library.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -40,7 +41,7 @@ public class BookDao implements Dao<Book> {
   }
 
   @Override
-  public List<Book> retrieveAll() {
+  public List<Book> retrieveAll() throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
     CriteriaQuery<Book> cq = cb.createQuery(Book.class);
