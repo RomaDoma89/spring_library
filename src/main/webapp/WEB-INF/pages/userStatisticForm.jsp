@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,17 +15,17 @@
 <body>
 <%@include file="/WEB-INF/pages/menu.jsp"%>
 
-<form action="readerStatisticByName"method="get" style=" text-align: center; padding-top: 50px">
+<form:form action="readerStatisticByName"  modelAttribute="readerStatisticDto" method="post" style=" text-align: center; padding-top: 50px">
     <p>Введіть ім'я користувача</p>
-    <input type="text" value="Susan Goodwin" name="name">
-    <br>
-    <select name="select">
-        <option value="value1"selected>Які книжки брав</option>
-        <option value="value2" >Які на руках</option>
-        <option value="value3">Дата реєстрації</option>
-    </select>
+    <form:label path="reader" style="text-align: center" >Title </form:label>
+    <form:input  path="reader" value="Jack Edwards"  style="text-align: center"/>    <br>
+    <form:select path="select">
+        <form:option selected="selected" value="read">Read book</form:option>
+        <form:option value="ordered">Ordered book</form:option>
+        <form:option  value="date">registration date</form:option>
+    </form:select>
     <br>
     <input type="submit" value="Submit">
-</form>
+</form:form>
 </body>
 </html>

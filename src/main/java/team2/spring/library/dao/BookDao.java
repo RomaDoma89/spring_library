@@ -25,13 +25,7 @@ import java.util.List;
 public class BookDao implements BookDaoInfs {
 
   private static final String TAG = BookDao.class.getName();
-  @Autowired
-  private SessionFactory sessionFactory;
-
-//  @Autowired
-//  public BookDao(SessionFactory sessionFactory) {
-//    this.sessionFactory = sessionFactory;
-//  }
+  @Autowired private SessionFactory sessionFactory;
 
   @Override
   public int insert(Book entity) {

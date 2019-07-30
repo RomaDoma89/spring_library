@@ -1,12 +1,28 @@
 package team2.spring.library.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import team2.spring.library.dto.ReaderStatisticDto;
+import team2.spring.library.entities.Reader;
+import team2.spring.library.entities.Story;
+import team2.spring.library.services.BookServiceImpl;
+import team2.spring.library.services.ReaderServiceImpl;
+
+import java.util.List;
 
 @Controller
 public class ReaderController {
+
+  @Autowired
+  private BookServiceImpl bookService;
+  @Autowired
+  private ReaderServiceImpl readerService;
+
   @RequestMapping(value = "/getBlackList", method = RequestMethod.GET)
   public ModelAndView getBlackList() {
     ModelAndView modelAndView = new ModelAndView();
@@ -19,27 +35,87 @@ public class ReaderController {
   public ModelAndView inputAvgAge() {
     return new ModelAndView("inputAvgAge");
   }
+  //
+  @RequestMapping(value = "/userStatisticForm", method = RequestMethod.GET)
+  public ModelAndView userStatisticForm() {
+    return new ModelAndView("userStatisticForm", "readerStatisticDto", new ReaderStatisticDto());
+  }
 
-  @RequestMapping(value = "/readerStatisticByName", method = RequestMethod.GET)
-  public ModelAndView readerStatisticByName() {
-    String select = "1";
+  @RequestMapping(value = "/readerStatisticByName", method = RequestMethod.POST)
+  public ModelAndView readerStatisticByName(
+      @ModelAttribute ReaderStatisticDto readerStatisticDto, BindingResult bindingResult) {
+    String select = readerStatisticDto.getSelect();
+    System.out.println(readerStatisticDto);
+
     ModelAndView modelAndView = new ModelAndView();
-
-    if (select.equals("1")) {
-      modelAndView.setViewName("userStatisticRead");
+    if (bindingResult.hasErrors() || readerStatisticDto.getReader().isEmpty()) {
+      modelAndView.setViewName("error");
+    }
+    if (select.equals("read")) {
+      List<Story> stories;
+        try{
+            stories =readerService.findReadBook(readerStatisticDto.getReader());
+            System.out.println(stories);
+        }
+        catch (Exception e){
+            modelAndView.setViewName("error");
+            return modelAndView;
+        }
+      if(stories.isEmpty()){
+        modelAndView.setViewName("error");
+      }
+      else {
+        modelAndView.setViewName("userStatisticRead");
+        readerStatisticDto.setStories(stories);
+        modelAndView.addObject(readerStatisticDto);
+      }
       return modelAndView;
     }
-    if (select.equals("2")) {
-      modelAndView.setViewName("userStatisticOnHand");
+    if (select.equals("ordered")) {
+        System.out.println("I tut");
+        List<Story> stories;
+        try{
+            stories = readerService.findNotReturnedBook(readerStatisticDto.getReader());
+            System.out.println(stories);
+        }
+        catch (Exception e){
+            modelAndView.setViewName("userStatisticRead");
+            return modelAndView;
+        }
+
+        if (stories.isEmpty()){
+          modelAndView.setViewName("error");
+      } else {
+        modelAndView.setViewName("userStatisticRead");
+        readerStatisticDto.setStories(stories);
+        modelAndView.addObject(readerStatisticDto);
+      }
 
       return modelAndView;
     } else {
-      modelAndView.setViewName("userStatisticRegistration");
+        List<Story> stories;
+        try{
+            stories =readerService.findReadBook(readerStatisticDto.getReader());
+            System.out.println(stories);
+//            stories.stream().min()
+        }
+        catch (Exception e){
+            modelAndView.setViewName("error");
+            return modelAndView;
+        }
+        if(stories.isEmpty()){
+            modelAndView.setViewName("error");
+        }
+        else {
+            modelAndView.setViewName("userStatisticRegistration");
+            readerStatisticDto.setStories(stories);
+            modelAndView.addObject(readerStatisticDto);
+        }
 
       return modelAndView;
     }
   }
-
+  //
   @RequestMapping(value = "/avgAgeReader", method = RequestMethod.GET)
   public ModelAndView avgAgeReader() {
     ModelAndView modelAndView = new ModelAndView();
@@ -66,11 +142,6 @@ public class ReaderController {
   @RequestMapping(value = "/readerAverageAppealForm", method = RequestMethod.GET)
   public ModelAndView readerAverageAppealForm() {
     return new ModelAndView("readerAverageAppealForm");
-  }
-
-  @RequestMapping(value = "/userStatisticForm", method = RequestMethod.GET)
-  public ModelAndView userStatisticForm() {
-    return new ModelAndView("userStatisticForm");
   }
 
   @RequestMapping(value = "/appealStatistic", method = RequestMethod.GET)

@@ -15,15 +15,18 @@ import java.util.List;
 
 import team2.spring.library.LibLog;
 import team2.spring.library.dao.interfaces.Dao;
+import team2.spring.library.dao.interfaces.ReaderDaoInfs;
 import team2.spring.library.entities.Reader;
 import team2.spring.library.entities.Story;
 
 @Transactional
+
 @Repository
-public class ReaderDao implements Dao<Reader> {
+public class ReaderDao implements ReaderDaoInfs {
 
   private static final String TAG = ReaderDao.class.getName();
-  // @Autowired
+
+
   private SessionFactory sessionFactory;
 
   @Autowired
@@ -73,6 +76,7 @@ public class ReaderDao implements Dao<Reader> {
 
   //  3.1 Переглянути статистику по читачу (які книжки брав, які на руках, скільки часу користується
   // послугами бібліотеки)
+  @Override
   public Reader findByName(String name) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -83,6 +87,7 @@ public class ReaderDao implements Dao<Reader> {
 
     return session.createQuery(cq).getSingleResult();
   }
+
 
   // 7
   public List<Story> getBlackList() throws NoResultException {
@@ -107,4 +112,5 @@ public class ReaderDao implements Dao<Reader> {
     cq.select(root).where(cb.equal(root.get("reader"), reader));
     return session.createQuery(cq).getResultList();
   }
+
 }

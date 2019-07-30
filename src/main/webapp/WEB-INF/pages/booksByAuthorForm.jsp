@@ -19,7 +19,7 @@
     <p>Введіть назву книги :</p>
     <br>
         <form:label path="author" style="text-align: center" >Author </form:label>
-        <form:input  path="author"   style="text-align: center"/>
+        <form:input  path="author" value="Steve McConnell"  style="text-align: center"/>
            <input type="submit" value="Submit"/>
     </form:form>
 </body>

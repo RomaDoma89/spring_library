@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.*;
@@ -16,22 +15,22 @@ import java.util.List;
 
 import team2.spring.library.LibLog;
 import team2.spring.library.dao.interfaces.Dao;
+import team2.spring.library.dao.interfaces.StoryDaoInfs;
 import team2.spring.library.entities.Copy;
 import team2.spring.library.entities.Reader;
 import team2.spring.library.entities.Story;
 
 @Transactional
 @Repository
-public class StoryDao implements Dao<Story> {
+public class StoryDao implements StoryDaoInfs {
 
   private static final String TAG = StoryDao.class.getName();
-  @Autowired
   private SessionFactory sessionFactory;
 
-//  @Autowired
-//  public StoryDao(SessionFactory sessionFactory) {
-//    this.sessionFactory = sessionFactory;
-//  }
+  @Autowired
+  public StoryDao(SessionFactory sessionFactory) {
+    this.sessionFactory = sessionFactory;
+  }
 
   @Override
   public int insert(Story entity) {
@@ -75,7 +74,7 @@ public class StoryDao implements Dao<Story> {
   }
 
   //  3.2 Переглянути статистику по читачу (які книжки брав)
-  public List<Story> readBooksForReader(Reader reader) throws NoResultException {
+  public List<Story> readBooksForReader(Reader reader) {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
 
@@ -85,7 +84,7 @@ public class StoryDao implements Dao<Story> {
     root.join("reader");
 
     cq.select(root).where(cb.equal(root.get("reader"), reader));
-
+    System.out.println(session.createQuery(cq).getResultList());
     return session.createQuery(cq).getResultList();
   }
 
@@ -119,9 +118,8 @@ public class StoryDao implements Dao<Story> {
     return session.createQuery(cq).getResultList().size();
   }
 
-  // 5. Скільки разів брали певну книжку (в загальному, по примірникам, середній час читання)
   // 9.1
-  public List<Story> getStoriesForBookByCopies(List<Copy> copyList) {
+  public List<Story> getAvgYearsByBook(List<Copy> copyList) {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
     CriteriaQuery<Story> cq = cb.createQuery(Story.class);
@@ -129,4 +127,38 @@ public class StoryDao implements Dao<Story> {
     cq.select(root).where(root.get("copy").in(copyList));
     return session.createQuery(cq).getResultList();
   }
+
+  //  5. Скільки разів брали певну книжку (в загальному, по примірникам, середній час читання)
+  //  public void find
+
+  //  public Date timeOfUsingLibraryForReaders() {
+  //    Session session = sessionFactory.getCurrentSession();
+  //    CriteriaBuilder cb = session.getCriteriaBuilder();
+  //
+  //    CriteriaQuery<Story> cq = cb.createQuery(Story.class);
+  //
+  //    Root<Story> root = cq.from(Story.class);
+  //    root.join("reader");
+
+  //    final Path<Date> checkDatePath = root.get("timeTake");
+  //    final ParameterExpression<Date> startDateParameter = cb.parameter(Date.class);
+  //
+  //
+  //    Path<Date> expiryDate = root.<Date> get("timeTake");
+  //    Expression<Date> exp = cb.least(expiryDate);
+  //
+  //
+  //
+  //    cq.select(root.get("reader"), root.get("timeTake")).groupBy(root.get("reader"));
+  //
+  //    Query query = session.createQuery(cq);
+  //    LibLog.error(TAG, query.toString());
+
+  //    List<Story> story = session.createQuery(cq).getResultList();
+  //    for (Story s : story) {
+  //      LibLog.error(TAG, s.toString());
+  //    }
+
+  //    return null;
+  //  }
 }
