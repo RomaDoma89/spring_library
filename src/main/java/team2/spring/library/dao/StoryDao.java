@@ -26,8 +26,6 @@ public class StoryDao implements StoryDaoInfs {
 
   private static final String TAG = StoryDao.class.getName();
   private SessionFactory sessionFactory;
-  //  @PersistenceContext
-  //  private EntityManagerFactory entityManagerFactory;
 
   @Autowired
   public StoryDao(SessionFactory sessionFactory) {
@@ -100,7 +98,7 @@ public class StoryDao implements StoryDaoInfs {
     Root<Story> root = cq.from(Story.class);
     root.join("reader");
 
-    cq.select(root).where(cb.equal(root.get("reader"), reader), cb.isNull(root.get("time_return")));
+    cq.select(root).where(cb.equal(root.get("reader"), reader), cb.isNull(root.get("timeReturn")));
 
     return session.createQuery(cq).getResultList();
   }

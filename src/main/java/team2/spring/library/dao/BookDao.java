@@ -8,6 +8,7 @@ import team2.spring.library.LibLog;
 import team2.spring.library.dao.interfaces.BookDaoInfs;
 import team2.spring.library.entities.Author;
 import team2.spring.library.entities.Book;
+import team2.spring.library.entities.Story;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -16,6 +17,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Transactional
@@ -23,8 +25,7 @@ import java.util.List;
 public class BookDao implements BookDaoInfs {
 
   private static final String TAG = BookDao.class.getName();
-  @Autowired
-  private SessionFactory sessionFactory;
+  @Autowired private SessionFactory sessionFactory;
 
   @Override
   public int insert(Book entity) {
@@ -95,5 +96,15 @@ public class BookDao implements BookDaoInfs {
 
     LibLog.error(TAG, a.getBooks().toString());
     return new ArrayList<>(a.getBooks());
+  }
+  // 6
+  public List<Story> getPopularBook(Date firstDate, Date secondDate) {
+    Session session = sessionFactory.getCurrentSession();
+    CriteriaBuilder cb = session.getCriteriaBuilder();
+    CriteriaQuery<Story> cq = cb.createQuery(Story.class);
+    Root<Story> root = cq.from(Story.class);
+
+    cq.select(root).where(cb.between(root.get("timeTake"), firstDate, secondDate));
+    return session.createQuery(cq).getResultList();
   }
 }

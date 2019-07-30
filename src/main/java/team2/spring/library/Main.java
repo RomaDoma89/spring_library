@@ -32,6 +32,7 @@ public class Main {
             .setProperty("hibernate.hbm2ddl.auto", "update");
 
     // Create SessionFactory
+<<<<<<< HEAD
     sessionFactory = cfg.buildSessionFactory();
 
 //    sessionFactory.getCurrentSession().getTransaction().begin();
@@ -76,6 +77,9 @@ public class Main {
 //    sessionFactory.getCurrentSession().getTransaction().commit();
 
     sessionFactory.getCurrentSession().getTransaction().begin();
+=======
+
+>>>>>>> 8b692a2592f7686b26b90c6f51cf787169aea317
 
 //    StoryDao storyDao = new StoryDao(sessionFactory);
 //    int count =  storyDao.findByPeriod(
