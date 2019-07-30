@@ -23,13 +23,13 @@ import team2.spring.library.entities.Story;
 public class ReaderDao implements Dao<Reader> {
 
   private static final String TAG = ReaderDao.class.getName();
-  @Autowired
+  // @Autowired
   private SessionFactory sessionFactory;
 
-//  @Autowired
-//  public ReaderDao(SessionFactory sessionFactory) {
-//    this.sessionFactory = sessionFactory;
-//  }
+  @Autowired
+  public ReaderDao(SessionFactory sessionFactory) {
+    this.sessionFactory = sessionFactory;
+  }
 
   @Override
   public int insert(Reader entity) {
@@ -85,13 +85,26 @@ public class ReaderDao implements Dao<Reader> {
   }
 
   // 7
-  public List<Story> getBlackList() {
+  public List<Story> getBlackList() throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
     CriteriaQuery<Story> cq = cb.createQuery(Story.class);
     Root<Story> root = cq.from(Story.class);
 
     cq.select(root).where(cb.isNull(root.get("timeReturn"))).groupBy(root.get("reader"));
+    return session.createQuery(cq).getResultList();
+  }
+
+  // 8 Рахуємо через retrieveAll
+  // 8.2, 8.3
+  public List<Story> getReaderStory(Reader reader) throws NoResultException {
+    Session session = sessionFactory.getCurrentSession();
+    CriteriaBuilder cb = session.getCriteriaBuilder();
+    CriteriaQuery<Story> cq = cb.createQuery(Story.class);
+    Root<Story> root = cq.from(Story.class);
+    root.join("reader");
+
+    cq.select(root).where(cb.equal(root.get("reader"), reader));
     return session.createQuery(cq).getResultList();
   }
 }
