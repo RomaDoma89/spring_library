@@ -23,7 +23,7 @@
         <p>Введіть назву книги :</p>
         <br>
         <form:label path="title" style="text-align: center" >Title </form:label>
-        <form:input  path="title"   style="text-align: center"/>
+        <form:input  path="title" value="Effective Java"  style="text-align: center"/>
         <input type="submit" value="Submit"/>
     </form:form>
 </body>

@@ -30,7 +30,7 @@
     </tr><!-- Table Header -->
     </thead>
     <tbody>
-    <c:forEach  var="book" items="${listBook}" varStatus="loop " >
+    <c:forEach  var="book" items="${listBook}" varStatus="loop" >
       <tr>
         <td>${loop.index+1}</td>
         <td>${book.title}</td>

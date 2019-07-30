@@ -3,6 +3,7 @@ package team2.spring.library.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @Setter

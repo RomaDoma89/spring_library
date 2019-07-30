@@ -73,6 +73,7 @@ public class CopyDao implements CopyDaoInfs {
   //  1.2 Подивитись, чи певна книжка доступна
   @Override
   public List<Copy> getAvailableCopies(Book book) throws NoResultException {
+    System.out.println("pfqikj ");
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
     CriteriaQuery<Copy> cq = cb.createQuery(Copy.class);
@@ -85,7 +86,7 @@ public class CopyDao implements CopyDaoInfs {
     return session.createQuery(cq).getResultList();
   }
   // 10
-  public List<Copy> getAllCopiesForBook(Book book) throws NoResultException {
+  public List<Copy> getAvailableCopiesByBook(Book book) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
     CriteriaQuery<Copy> cq = cb.createQuery(Copy.class);

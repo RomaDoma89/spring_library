@@ -18,11 +18,6 @@ public class AuthorController {
   @RequestMapping(value = "/booksByAuthor", method = RequestMethod.POST)
   public ModelAndView bookTitle(@ModelAttribute BookAuthorDto bookAuthorDto) {
     ModelAndView modelAndView = new ModelAndView();
-//    @RequestParam String author, BindingResult bindingResult
-//    if (bindingResult.hasErrors() || author.isEmpty()) {
-//      modelAndView.setViewName("error");
-//      return modelAndView;
-//    }
       modelAndView.setViewName("booksByAuthor");
       System.out.println(bookAuthorDto);
     bookAuthorDto.setBooks(bookService.findBookByAuthor(bookAuthorDto.getAuthor()));
