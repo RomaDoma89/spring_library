@@ -28,7 +28,7 @@ public class BookDao implements BookDaoInfs {
   @Autowired private SessionFactory sessionFactory;
 
   @Override
-  public int insert(Book entity) {
+  public int insert(Book entity) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     int id = (int) session.save(entity);
     LibLog.debug(TAG, "inserted : " + session.find(Book.class, id));
@@ -36,7 +36,7 @@ public class BookDao implements BookDaoInfs {
   }
 
   @Override
-  public Book retrieve(int id) {
+  public Book retrieve(int id) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     return session.find(Book.class, id);
   }
@@ -53,14 +53,14 @@ public class BookDao implements BookDaoInfs {
   }
 
   @Override
-  public Book update(Book entity) {
+  public Book update(Book entity) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     session.saveOrUpdate(entity);
     return session.find(Book.class, entity.getId());
   }
 
   @Override
-  public boolean delete(int id) {
+  public boolean delete(int id) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     Book book = session.find(Book.class, id);
     session.delete(book);
@@ -82,7 +82,7 @@ public class BookDao implements BookDaoInfs {
 
   //    2.2 Вивести всі книжки по автору (основний автор, співавтор)
   @Override
-  public List<Book> findBooksByAuthor(Author author) {
+  public List<Book> findBooksByAuthor(Author author) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder builder = session.getCriteriaBuilder();
     CriteriaQuery<Author> cq = builder.createQuery(Author.class);
@@ -98,7 +98,7 @@ public class BookDao implements BookDaoInfs {
     return new ArrayList<>(a.getBooks());
   }
   // 6
-  public List<Story> getPopularBook(Date firstDate, Date secondDate) {
+  public List<Story> getPopularBook(Date firstDate, Date secondDate) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
     CriteriaQuery<Story> cq = cb.createQuery(Story.class);

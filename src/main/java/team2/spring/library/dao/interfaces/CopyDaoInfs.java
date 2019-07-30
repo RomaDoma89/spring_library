@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface CopyDaoInfs extends Dao<Copy> {
   List<Copy> getAvailableCopies(Book book) throws NoResultException;
+
+  List<Copy> getAllCopiesByBook(Book book) throws NoResultException;
 }

@@ -8,7 +8,9 @@ import javax.persistence.NoResultException;
 import java.util.List;
 
 public interface BookService {
-    List<Book> getAllBooks()throws NoResultException;
-    List<Copy> isBookAvailable(String title)throws NoResultException;
-    List<Book> findBookByAuthor(String name)throws NoResultException;
+  List<Book> getAllBooks() throws NoResultException;
+
+  List<Copy> isBookAvailable(String title) throws NoResultException;
+
+  List<Book> findBookByAuthor(String name) throws NoResultException;
 }

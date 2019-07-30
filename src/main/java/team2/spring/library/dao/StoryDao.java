@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.*;
@@ -33,7 +34,7 @@ public class StoryDao implements StoryDaoInfs {
   }
 
   @Override
-  public int insert(Story entity) {
+  public int insert(Story entity) throws NoResultException {
 
     Session session = sessionFactory.getCurrentSession();
     int id = (int) session.save(entity);
@@ -42,13 +43,13 @@ public class StoryDao implements StoryDaoInfs {
   }
 
   @Override
-  public Story retrieve(int id) {
+  public Story retrieve(int id) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     return session.find(Story.class, id);
   }
 
   @Override
-  public List<Story> retrieveAll() {
+  public List<Story> retrieveAll() throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
     CriteriaQuery<Story> cq = cb.createQuery(Story.class);
@@ -59,14 +60,14 @@ public class StoryDao implements StoryDaoInfs {
   }
 
   @Override
-  public Story update(Story entity) {
+  public Story update(Story entity) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     session.saveOrUpdate(entity);
     return session.find(Story.class, entity.getId());
   }
 
   @Override
-  public boolean delete(int id) {
+  public boolean delete(int id) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     Story story = session.find(Story.class, id);
     session.delete(story);
@@ -74,7 +75,7 @@ public class StoryDao implements StoryDaoInfs {
   }
 
   //  3.2 Переглянути статистику по читачу (які книжки брав)
-  public List<Story> readBooksForReader(Reader reader) {
+  public List<Story> readBooksForReader(Reader reader) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
 
@@ -89,7 +90,7 @@ public class StoryDao implements StoryDaoInfs {
   }
 
   //  3.2 Переглянути статистику по читачу (які на руках)
-  public List<Story> notReturnedBooksForReader(Reader reader) {
+  public List<Story> notReturnedBooksForReader(Reader reader) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
 
@@ -104,7 +105,7 @@ public class StoryDao implements StoryDaoInfs {
   }
 
   //  4. Скільки книжок в бібліотеці, які видані в період незалежності
-  public int findByPeriod(Date fromDate, Date toDate) {
+  public int findByPeriod(Date fromDate, Date toDate) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
 
@@ -119,7 +120,7 @@ public class StoryDao implements StoryDaoInfs {
   }
 
   // 9.1
-  public List<Story> getAvgYearsByBook(List<Copy> copyList) {
+  public List<Story> getAvgYearsByBook(List<Copy> copyList) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
     CriteriaQuery<Story> cq = cb.createQuery(Story.class);
