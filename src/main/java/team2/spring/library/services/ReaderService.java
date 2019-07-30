@@ -6,7 +6,7 @@ import javax.persistence.NoResultException;
 import java.util.List;
 
 public interface ReaderService {
-    List<Story> findReadBook(String name)throws NoResultException;
-    List<Story> findNotReturnedBook(String name)throws NoResultException;
+  List<Story> findReadBook(String name) throws NoResultException;
 
-    }
+  List<Story> findNotReturnedBook(String name) throws NoResultException;
+}

@@ -20,12 +20,10 @@ import team2.spring.library.entities.Reader;
 import team2.spring.library.entities.Story;
 
 @Transactional
-
 @Repository
 public class ReaderDao implements ReaderDaoInfs {
 
   private static final String TAG = ReaderDao.class.getName();
-
 
   private SessionFactory sessionFactory;
 
@@ -35,7 +33,7 @@ public class ReaderDao implements ReaderDaoInfs {
   }
 
   @Override
-  public int insert(Reader entity) {
+  public int insert(Reader entity) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     int id = (int) session.save(entity);
     LibLog.debug(TAG, "inserted : " + session.find(Reader.class, id));
@@ -43,13 +41,13 @@ public class ReaderDao implements ReaderDaoInfs {
   }
 
   @Override
-  public Reader retrieve(int id) {
+  public Reader retrieve(int id) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     return session.find(Reader.class, id);
   }
 
   @Override
-  public List<Reader> retrieveAll() {
+  public List<Reader> retrieveAll() throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
     CriteriaQuery<Reader> cq = cb.createQuery(Reader.class);
@@ -60,14 +58,14 @@ public class ReaderDao implements ReaderDaoInfs {
   }
 
   @Override
-  public Reader update(Reader entity) {
+  public Reader update(Reader entity) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     session.saveOrUpdate(entity);
     return session.find(Reader.class, entity.getId());
   }
 
   @Override
-  public boolean delete(int id) {
+  public boolean delete(int id) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     Reader reader = session.find(Reader.class, id);
     session.delete(reader);
@@ -87,7 +85,6 @@ public class ReaderDao implements ReaderDaoInfs {
 
     return session.createQuery(cq).getSingleResult();
   }
-
 
   // 7
   public List<Story> getBlackList() throws NoResultException {
@@ -112,5 +109,4 @@ public class ReaderDao implements ReaderDaoInfs {
     cq.select(root).where(cb.equal(root.get("reader"), reader));
     return session.createQuery(cq).getResultList();
   }
-
 }

@@ -31,7 +31,7 @@ public class CopyDao implements CopyDaoInfs {
   //  }
 
   @Override
-  public int insert(Copy entity) {
+  public int insert(Copy entity) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     int id = (int) session.save(entity);
     LibLog.debug(TAG, "inserted : " + session.find(Copy.class, id));
@@ -39,13 +39,13 @@ public class CopyDao implements CopyDaoInfs {
   }
 
   @Override
-  public Copy retrieve(int id) {
+  public Copy retrieve(int id) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     return session.find(Copy.class, id);
   }
 
   @Override
-  public List<Copy> retrieveAll() {
+  public List<Copy> retrieveAll() throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
     CriteriaQuery<Copy> cq = cb.createQuery(Copy.class);
@@ -56,14 +56,14 @@ public class CopyDao implements CopyDaoInfs {
   }
 
   @Override
-  public Copy update(Copy entity) {
+  public Copy update(Copy entity) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     session.saveOrUpdate(entity);
     return session.find(Copy.class, entity.getId());
   }
 
   @Override
-  public boolean delete(int id) {
+  public boolean delete(int id) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     Copy copy = session.find(Copy.class, id);
     session.delete(copy);
@@ -86,7 +86,7 @@ public class CopyDao implements CopyDaoInfs {
     return session.createQuery(cq).getResultList();
   }
   // 10
-  public List<Copy> getAvailableCopiesByBook(Book book) throws NoResultException {
+  public List<Copy> getAllCopiesByBook(Book book) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
     CriteriaQuery<Copy> cq = cb.createQuery(Copy.class);

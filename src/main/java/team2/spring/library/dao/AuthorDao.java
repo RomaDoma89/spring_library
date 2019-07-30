@@ -20,7 +20,6 @@ import team2.spring.library.dao.interfaces.Dao;
 import team2.spring.library.entities.Author;
 
 @Transactional
-
 @Repository
 public class AuthorDao implements AuthorDaoInfs {
 
@@ -33,7 +32,7 @@ public class AuthorDao implements AuthorDaoInfs {
   }
 
   @Override
-  public int insert(Author entity) {
+  public int insert(Author entity) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     int id = (int) session.save(entity);
     LibLog.debug(TAG, "inserted : " + session.find(Author.class, id));
@@ -41,13 +40,13 @@ public class AuthorDao implements AuthorDaoInfs {
   }
 
   @Override
-  public Author retrieve(int id) {
+  public Author retrieve(int id) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     return session.find(Author.class, id);
   }
 
   @Override
-  public List<Author> retrieveAll() {
+  public List<Author> retrieveAll() throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     CriteriaBuilder cb = session.getCriteriaBuilder();
     CriteriaQuery<Author> cq = cb.createQuery(Author.class);
@@ -58,14 +57,14 @@ public class AuthorDao implements AuthorDaoInfs {
   }
 
   @Override
-  public Author update(Author entity) {
+  public Author update(Author entity) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     session.saveOrUpdate(entity);
     return session.find(Author.class, entity.getId());
   }
 
   @Override
-  public boolean delete(int id) {
+  public boolean delete(int id) throws NoResultException {
     Session session = sessionFactory.getCurrentSession();
     Author book = session.find(Author.class, id);
     session.delete(book);

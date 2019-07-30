@@ -11,8 +11,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="resources/style.css" type="text/css">
-    <link rel="stylesheet" href="resources/font-awesome.css" type="text/css">
+    <link rel="stylesheet" href="<c:url value="/resources/style.css"/>" type="text/css">
+    <link rel="stylesheet" href="<c:url value="/resources/font-awesome.css"/>type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Cuprum" rel="stylesheet">
     <title>Tom menu</title>
 </head>
