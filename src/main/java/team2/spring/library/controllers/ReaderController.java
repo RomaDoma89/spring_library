@@ -79,19 +79,16 @@ public class ReaderController {
             System.out.println(stories);
         }
         catch (Exception e){
-            modelAndView.setViewName("error");
+            modelAndView.setViewName("userStatisticRead");
             return modelAndView;
         }
-
-
 
         if (stories.isEmpty()){
           modelAndView.setViewName("error");
       } else {
         modelAndView.setViewName("userStatisticRead");
-
-//        readerStatisticDto.setStories(stories);
-//        modelAndView.addObject(readerStatisticDto);
+        readerStatisticDto.setStories(stories);
+        modelAndView.addObject(readerStatisticDto);
       }
 
       return modelAndView;
